@@ -57,3 +57,18 @@ ordenamiento. (La suma de las longitudes de las cadenas contiguas más largas en
 ambos lados da el número máximo de oficiales que se pueden eliminar. Este
 enfoque asegura que capturamos las cadenas más largas posibles donde los
 oficiales están bloqueados para moverse, lo que lleva a su eliminación.)
+
+# Problema 12, Sistema. Oro Negro, los amigos acaballadores:
+
+La idea es hacer un Sweep Line sobre eventos ordenados que sean la llegada de un amigo o el inicio del minuto final m-1, comprando el petróleo de forma greedy cuando haga falta y solo la cantidad necesaria, esperando la posibilidad de un mejor precio.
+Se utiliza una estructura para saber dado un precio determinado el conjunto de amigos que ya llegaron que venden petróleo a ese precio y todavía les queda para vender. Insertar, modificar y eliminar en O(logn) y saber la menor llave en O(1).
+Nos quedamos solo con los amigos que llegan antes del minuto m. Se ordenan los tiempos de llegada de los amigos restantes y se insertan en una cola de eventos.
+Se recorre cronológicamente la cola manteniendo la cantidad de petroleo que quedaen cada momento. Si un evento es la llegada de un amigo, se inserta en el mapa de precios de petroleo a vector de amigos. Se determina el próximo evento a ocurrir, y se compra el petróleo justo que haga falta para llegar al próximo evento .
+Si se llega al evento que representa el inicio del minuto final m-1 se logró.
+La complejidad es O(nlogn) por ordenar a lo sumo n amigos por orden de llegada.
+
+Costo mínimo de tener K litros en el min i
+
+- dp[i][k] $ \forall j$ tal que $t_j = i$:
+- $dp[i][min(C,k+ a_j)]$ =min dp[i][k]+ $P_j$
+- dp[i+1][k-1] =min dp[i][k]
